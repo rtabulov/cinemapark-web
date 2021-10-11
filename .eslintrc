@@ -1,5 +1,7 @@
 {
-  "extends": [
-    "@antfu"
-  ]
+  "extends": ["@antfu"],
+  "rules": {
+    "no-console": "warn",
+    "vue/singleline-html-element-content-newline": "off"
+  }
 }

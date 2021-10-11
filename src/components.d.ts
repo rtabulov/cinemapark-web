@@ -9,6 +9,10 @@ declare module 'vue' {
     CarbonMoon: typeof import('~icons/carbon/moon')['default']
     CarbonSun: typeof import('~icons/carbon/sun')['default']
     Footer: typeof import('./components/Footer.vue')['default']
+    MovieCard: typeof import('./components/MovieCard.vue')['default']
+    MovieDetails: typeof import('./components/MovieDetails.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
   }
 }
 
