@@ -15,3 +15,17 @@ export type Movie = {
   trailer: string
   _id: string
 }
+
+export class CreateMovieDto {
+  name: TranslatedString
+  poster: string
+  trailer: string
+  rating: Rating
+  countries: Country[]
+  genres: { name: TranslatedString }[]
+  desc: TranslatedString
+  runtime: number
+  directors: { name: TranslatedString }[]
+  actors: { name: TranslatedString }[]
+  releaseDate: Date
+}

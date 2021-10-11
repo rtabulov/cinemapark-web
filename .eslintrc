@@ -2,6 +2,8 @@
   "extends": ["@antfu"],
   "rules": {
     "no-console": "warn",
-    "vue/singleline-html-element-content-newline": "off"
+    "vue/singleline-html-element-content-newline": "off",
+    "arrow-parens": "off",
+    "operator-linebreak": "off"
   }
 }

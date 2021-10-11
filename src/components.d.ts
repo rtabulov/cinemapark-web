@@ -4,13 +4,18 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AppInput: typeof import('./components/AppInput.vue')['default']
     CarbonCampsite: typeof import('~icons/carbon/campsite')['default']
+    CarbonClose: typeof import('~icons/carbon/close')['default']
+    CarbonEdit: typeof import('~icons/carbon/edit')['default']
     CarbonLogoGithub: typeof import('~icons/carbon/logo-github')['default']
     CarbonMoon: typeof import('~icons/carbon/moon')['default']
     CarbonSun: typeof import('~icons/carbon/sun')['default']
+    CarbonTranslate: typeof import('~icons/carbon/translate')['default']
     Footer: typeof import('./components/Footer.vue')['default']
     MovieCard: typeof import('./components/MovieCard.vue')['default']
     MovieDetails: typeof import('./components/MovieDetails.vue')['default']
+    MultiInput: typeof import('./components/MultiInput.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

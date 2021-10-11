@@ -10,6 +10,7 @@ import 'virtual:windi-base.css'
 import 'virtual:windi-components.css'
 import './styles/main.css'
 import 'virtual:windi-utilities.css'
+import i18n from './i18n'
 
 const app = createApp(App)
 const router = createRouter({
@@ -19,6 +20,6 @@ const router = createRouter({
 
 const pinia = createPinia()
 app.use(pinia)
-
+app.use(i18n)
 app.use(router)
 app.mount('#app')

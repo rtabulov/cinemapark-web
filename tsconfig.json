@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "module": "ESNext",
     "target": "es2016",
-    "lib": ["DOM", "ESNext"],
+    "lib": ["DOM", "ESNext", "DOM.Iterable"],
     "strict": true,
     "esModuleInterop": true,
     "incremental": false,
@@ -18,6 +18,5 @@
       "~/*": ["src/*"]
     }
   },
-  "include": ["src/**/*.vue", "src/**/*.ts"],
   "exclude": ["dist", "node_modules"]
 }
