@@ -51,7 +51,7 @@ function onSubmit() {
         <span>|</span>
 
         <label for="name_ru">ru</label>
-        <AppInput id="name_ru" v-model="form.name.ru" required type="text" />
+        <AppInput id="name_ru" v-model="form.name.ru" type="text" />
       </div>
 
       <label class="block text-lg !my-4">Description</label>
@@ -62,7 +62,7 @@ function onSubmit() {
         <span>|</span>
 
         <label for="desc_ru">ru</label>
-        <AppInput id="desc_ru" v-model="form.desc.ru" required type="text" />
+        <AppInput id="desc_ru" v-model="form.desc.ru" type="text" />
       </div>
 
       <label class="block text-lg !my-4" for="release_date">Release date</label>
@@ -75,7 +75,25 @@ function onSubmit() {
       />
 
       <label class="block text-lg !my-4" for="genres">Genres</label>
-      <MultiInput id="genres" v-model="genres" required />
+      <MultiInput id="genres" v-model="genres" />
+
+      <div>
+        <label class="block text-lg !my-4" for="runtime">
+          Runtime (minutes)
+        </label>
+        <AppInput
+          id="runtime"
+          v-model.number="form.runtime"
+          type="number"
+          min="0"
+          max="999"
+          required
+        />
+      </div>
+
+      <div class="!mt-4">
+        <button class="btn" type="submit">Create</button>
+      </div>
     </form>
   </div>
 </template>

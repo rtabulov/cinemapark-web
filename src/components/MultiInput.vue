@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { uniqBy } from 'lodash-es'
 import { translateSting } from '~/logic/translate'
 import { TranslatedString } from '~/types/Translated'
 
@@ -6,9 +7,18 @@ const { locale } = useI18n()
 
 const val = ref('')
 
-const props = withDefaults(defineProps<{ modelValue?: TranslatedString[] }>(), {
-  modelValue: () => [],
-})
+const props = withDefaults(
+  defineProps<{
+    modelValue?: TranslatedString[]
+    uniq?: boolean
+    uniqField?: 'ru' | 'en'
+  }>(),
+  {
+    modelValue: () => [],
+    uniq: true,
+    uniqField: 'en',
+  },
+)
 const emit =
   defineEmits<{ (e: 'update:modelValue', val: TranslatedString[]): void }>()
 
@@ -42,10 +52,15 @@ function removeItem(item: TranslatedString) {
 }
 
 function addItem(item: string) {
-  const newItem = item.trim().toLowerCase()
-  if (!newItem) return
+  const newstr = item.trim().toLowerCase()
+  if (!newstr) return
 
-  items.value.push({ [locale.value]: newItem })
+  const newItem = { [locale.value]: newstr }
+
+  if (props.uniq)
+    items.value = uniqBy([...items.value, newItem], props.uniqField)
+  else items.value = [...items.value, newItem]
+
   val.value = ''
 }
 
@@ -95,6 +110,8 @@ function updateTranslation() {
             <label for="genre-ru">ru</label>
             <AppInput id="genre-ru" v-model="selectedGenre.ru" />
           </div>
+
+          <input type="submit" class="hidden" />
         </form>
       </template>
     </ConfirmModal>
