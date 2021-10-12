@@ -29,6 +29,8 @@ watch(
   { deep: true },
 )
 
+const selectedGenre = ref<(TranslatedString & { idx: number }) | null>(null)
+
 function onInput(e: Event) {
   const { value } = e.target as HTMLInputElement
 
@@ -52,6 +54,13 @@ function onDeletePress() {
 
   items.value.splice(items.value.length - 1, 1)
 }
+
+function updateTranslation() {
+  if (!selectedGenre.value) return
+  const { idx, ...translations } = selectedGenre.value
+  items.value[idx] = translations
+  selectedGenre.value = null
+}
 </script>
 
 <template>
@@ -66,15 +75,34 @@ function onDeletePress() {
       rounded-sm
       transition
       ring-light-900
-      bg-opacity-70 bg-gray-500
+      bg-opacity-30 bg-gray-500
       overflow-x-auto
     "
     :class="{ 'ring-1': focus }"
   >
+    <ConfirmModal
+      v-if="selectedGenre"
+      :title="`translate '${items[selectedGenre.idx].en}'`"
+      @confirm="updateTranslation"
+    >
+      <template #default>
+        <form action="#" class="space-y-4" @submit.prevent="updateTranslation">
+          <div class="space-x-2">
+            <label for="genre-en">en</label>
+            <AppInput id="genre-en" v-model="selectedGenre.en" />
+          </div>
+          <div class="space-x-2">
+            <label for="genre-ru">ru</label>
+            <AppInput id="genre-ru" v-model="selectedGenre.ru" />
+          </div>
+        </form>
+      </template>
+    </ConfirmModal>
+
     <span class="left-0 space-x-1 flex z-1">
       <span
-        v-for="item in items"
-        :key="`${item.ru}${item.en}`"
+        v-for="(item, idx) in items"
+        :key="item.en"
         class="
           flex
           items-center
@@ -87,7 +115,10 @@ function onDeletePress() {
         "
       >
         <span>{{ translateSting(item) }}</span>
-        <CarbonTranslate class="cursor-pointer" @click.stop="" />
+        <CarbonTranslate
+          class="cursor-pointer"
+          @click="selectedGenre = { ...item, idx }"
+        />
         <CarbonClose class="cursor-pointer" @click="removeItem(item)" />
       </span>
     </span>
@@ -99,7 +130,7 @@ function onDeletePress() {
       @input="onInput"
       @focus="focus = true"
       @blur="focus = false"
-      @keypress.enter="addItem(val)"
+      @keypress.enter.prevent="addItem(val)"
       @keydown.delete="onDeletePress()"
     />
   </div>

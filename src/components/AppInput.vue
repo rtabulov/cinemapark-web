@@ -16,7 +16,7 @@ function onInput(e: Event) {
     class="
       rounded-sm
       min-w-72
-      bg-opacity-70 bg-gray-500
+      bg-opacity-30 bg-gray-500
       px-3
       py-1
       transition

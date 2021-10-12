@@ -7,8 +7,6 @@ import { TranslatedString } from '~/types/Translated'
 
 useTitle('Create a movie')
 
-const { locale } = useI18n()
-
 const form = reactive<CreateMovieDto>({
   name: { en: '', ru: '' },
   desc: { en: '', ru: '' },
@@ -26,16 +24,12 @@ const form = reactive<CreateMovieDto>({
 const prettyReleaseDate = computed(() => prettyDate(form.releaseDate))
 
 // TODO make multi input multi locale????
-const genres = ref<TranslatedString[]>([
-  { en: 'action', ru: 'экшн' },
-  { en: 'thriller', ru: 'триллер' },
-])
+const genres = ref<TranslatedString[]>([])
 watch(
   genres,
   () =>
     (form.genres = genres.value.map((el) => ({
-      ...form.genres,
-      name: { [locale.value]: el },
+      name: el,
     }))),
   { immediate: true, deep: true },
 )

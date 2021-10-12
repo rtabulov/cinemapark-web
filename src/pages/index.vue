@@ -1,5 +1,5 @@
 <script setup lang="ts">
-useRouter().push({ name: 'Movies' })
+// useRouter().push({ name: 'Movies' })
 </script>
 
 <template>

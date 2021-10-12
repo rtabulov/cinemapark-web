@@ -1,2 +1,2 @@
 export const isDark = useDark()
-export const toggleDark = useToggle(isDark)
+export const toggleDark = () => (isDark.value = !isDark.value)

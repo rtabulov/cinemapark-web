@@ -5,6 +5,7 @@
 declare module 'vue' {
   export interface GlobalComponents {
     AppInput: typeof import('./components/AppInput.vue')['default']
+    AppModal: typeof import('./components/AppModal.vue')['default']
     CarbonCampsite: typeof import('~icons/carbon/campsite')['default']
     CarbonClose: typeof import('~icons/carbon/close')['default']
     CarbonEdit: typeof import('~icons/carbon/edit')['default']
@@ -12,7 +13,9 @@ declare module 'vue' {
     CarbonMoon: typeof import('~icons/carbon/moon')['default']
     CarbonSun: typeof import('~icons/carbon/sun')['default']
     CarbonTranslate: typeof import('~icons/carbon/translate')['default']
+    ConfirmModal: typeof import('./components/ConfirmModal.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
+    LocaleSwitch: typeof import('./components/LocaleSwitch.vue')['default']
     MovieCard: typeof import('./components/MovieCard.vue')['default']
     MovieDetails: typeof import('./components/MovieDetails.vue')['default']
     MultiInput: typeof import('./components/MultiInput.vue')['default']
