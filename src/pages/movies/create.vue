@@ -27,10 +27,9 @@ const prettyReleaseDate = computed(() => prettyDate(form.releaseDate))
 const genres = ref<TranslatedString[]>([])
 watch(
   genres,
-  () =>
-    (form.genres = genres.value.map((el) => ({
-      name: el,
-    }))),
+  () => {
+    form.genres = genres.value.map((el) => ({ name: el }))
+  },
   { immediate: true, deep: true },
 )
 
@@ -40,41 +39,43 @@ function onSubmit() {
 </script>
 
 <template>
-  <h1 class="text-2xl mb-8">Create a movie</h1>
+  <div class="container">
+    <h1 class="text-2xl mb-8">Create a movie</h1>
 
-  <form class="space-y-2" @submit.prevent="onSubmit">
-    <label class="block text-lg !my-4">Title</label>
-    <div class="space-x-4">
-      <AppInput id="name_en" v-model="form.name.en" required type="text" />
-      <label for="name_en">en</label>
+    <form class="space-y-2" @submit.prevent="onSubmit">
+      <label class="block text-lg !my-4">Title</label>
+      <div class="space-x-4">
+        <AppInput id="name_en" v-model="form.name.en" required type="text" />
+        <label for="name_en">en</label>
 
-      <span>|</span>
+        <span>|</span>
 
-      <label for="name_ru">ru</label>
-      <AppInput id="name_ru" v-model="form.name.ru" required type="text" />
-    </div>
+        <label for="name_ru">ru</label>
+        <AppInput id="name_ru" v-model="form.name.ru" required type="text" />
+      </div>
 
-    <label class="block text-lg !my-4">Description</label>
-    <div class="space-x-4">
-      <AppInput id="desc_en" v-model="form.desc.en" required type="text" />
-      <label for="desc_en">en</label>
+      <label class="block text-lg !my-4">Description</label>
+      <div class="space-x-4">
+        <AppInput id="desc_en" v-model="form.desc.en" required type="text" />
+        <label for="desc_en">en</label>
 
-      <span>|</span>
+        <span>|</span>
 
-      <label for="desc_ru">ru</label>
-      <AppInput id="desc_ru" v-model="form.desc.ru" required type="text" />
-    </div>
+        <label for="desc_ru">ru</label>
+        <AppInput id="desc_ru" v-model="form.desc.ru" required type="text" />
+      </div>
 
-    <label class="block text-lg !my-4" for="release_date">Release date</label>
-    <AppInput
-      id="release_date"
-      :value="prettyReleaseDate"
-      required
-      type="date"
-      @input="form.releaseDate = new Date($event.target.value)"
-    />
+      <label class="block text-lg !my-4" for="release_date">Release date</label>
+      <AppInput
+        id="release_date"
+        :value="prettyReleaseDate"
+        required
+        type="date"
+        @input="form.releaseDate = new Date($event.target.value)"
+      />
 
-    <label class="block text-lg !my-4" for="genres">Genres</label>
-    <MultiInput id="genres" v-model="genres" required />
-  </form>
+      <label class="block text-lg !my-4" for="genres">Genres</label>
+      <MultiInput id="genres" v-model="genres" required />
+    </form>
+  </div>
 </template>

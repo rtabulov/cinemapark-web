@@ -13,7 +13,7 @@ movieStore.fetchMovies()
 </script>
 
 <template>
-  <div class="container mx-auto">
+  <div class="container">
     <h1 class="text-2xl mb-8">Now in theaters</h1>
 
     <div class="grid grid-cols-6 gap-4">
