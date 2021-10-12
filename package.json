@@ -9,7 +9,7 @@
     "@vueuse/core": "^6.5.3",
     "axios": "^0.22.0",
     "lodash-es": "^4.17.21",
-    "pinia": "^2.0.0-rc.10",
+    "pinia": "^2.0.0-rc.12",
     "vue": "^3.2.20",
     "vue-demi": "^0.11.4",
     "vue-i18n": "^9.2.0-beta.11",
@@ -30,7 +30,7 @@
     "unplugin-auto-import": "^0.4.12",
     "unplugin-icons": "^0.12.13",
     "unplugin-vue-components": "^0.15.6",
-    "vite": "^2.6.5",
+    "vite": "^2.6.7",
     "vite-plugin-pages": "^0.18.1",
     "vite-plugin-windicss": "^1.4.10"
   }

@@ -7,8 +7,15 @@ watch(locale, () => {
 </script>
 
 <template>
+  <TheNavbar />
   <main class="py-10 text-gray-700 dark:text-gray-200">
-    <RouterView />
-    <Footer />
+    <RouterView v-slot="{ Component, route }">
+      <template v-if="Component">
+        <KeepAlive>
+          <component :is="Component" :key="route.path"></component>
+        </KeepAlive>
+      </template>
+    </RouterView>
+    <TheFooter />
   </main>
 </template>

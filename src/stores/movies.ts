@@ -9,7 +9,7 @@ export const useMovieStore = defineStore('user', {
 
   actions: {
     async fetchMovies() {
-      this.movies = await getMovies()
+      if (!this.movies.length) this.movies = await getMovies()
     },
   },
 })

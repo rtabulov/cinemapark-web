@@ -19,7 +19,7 @@ export default defineConfig({
     Vue(),
 
     // https://github.com/hannoeru/vite-plugin-pages
-    Pages(),
+    Pages({ importMode: 'async' }),
 
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({
