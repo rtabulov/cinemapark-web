@@ -1,4 +1,6 @@
 import { NameTranslated, TranslatedString } from './Translated'
+import { CountryCode } from '~/utils/countries'
+import { Rating } from '~/utils/ratings'
 
 export type Movie = {
   name: TranslatedString
@@ -21,7 +23,7 @@ export class CreateMovieDto {
   poster: string
   trailer: string
   rating: Rating
-  countries: Country[]
+  countries: CountryCode[]
   genres: { name: TranslatedString }[]
   desc: TranslatedString
   runtime: number

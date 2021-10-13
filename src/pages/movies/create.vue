@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import { createMovie } from '~/api'
 import { CreateMovieDto } from '~/types/Movie'
-import MultiInput from '~/components/MultiInput.vue'
 import { prettyDate } from '~/utils'
 import { TranslatedString } from '~/types/Translated'
+import { countries } from '~/utils/countries'
+import { ratings } from '~/utils/ratings'
 
 useTitle('Create a movie')
 
@@ -15,23 +16,34 @@ const form = reactive<CreateMovieDto>({
   runtime: 0,
   poster: '',
   trailer: '',
-  actors: [],
-  countries: [],
+  actors: [{ name: { en: 'Tom Hardy' } }],
+  countries: ['KZ', 'US'],
   directors: [],
-  rating: '',
+  rating: null,
 })
 
 const prettyReleaseDate = computed(() => prettyDate(form.releaseDate))
 
-// TODO make multi input multi locale????
-const genres = ref<TranslatedString[]>([])
-watch(
-  genres,
-  () => {
-    form.genres = genres.value.map((el) => ({ name: el }))
+const genresInterface = computed<TranslatedString[]>({
+  get: () => form.genres.map((el) => el.name),
+  set: (val) => {
+    form.genres = val.map((el) => ({ name: el }))
   },
-  { immediate: true, deep: true },
-)
+})
+
+const actorsInterface = computed<TranslatedString[]>({
+  get: () => form.actors.map((el) => el.name),
+  set: (val) => {
+    form.actors = val.map((el) => ({ name: el }))
+  },
+})
+
+const directorsInterface = computed<TranslatedString[]>({
+  get: () => form.directors.map((el) => el.name),
+  set: (val) => {
+    form.directors = val.map((el) => ({ name: el }))
+  },
+})
 
 function onSubmit() {
   createMovie(form)
@@ -74,8 +86,10 @@ function onSubmit() {
         @input="form.releaseDate = new Date($event.target.value)"
       />
 
-      <label class="block text-lg !my-4" for="genres">Genres</label>
-      <MultiInput id="genres" v-model="genres" />
+      <div>
+        <label class="block text-lg !my-4" for="genres">Genres</label>
+        <MultiInputTranslated id="genres" v-model="genresInterface" />
+      </div>
 
       <div>
         <label class="block text-lg !my-4" for="runtime">
@@ -89,6 +103,44 @@ function onSubmit() {
           max="999"
           required
         />
+      </div>
+
+      <div>
+        <label class="block text-lg !my-4" for="poster"> Poster URL </label>
+        <AppInput id="poster" v-model.number="form.poster" required />
+      </div>
+
+      <div>
+        <label class="block text-lg !my-4" for="trailer"> Trailer URL </label>
+        <AppInput id="trailer" v-model.number="form.trailer" required />
+      </div>
+
+      <div>
+        <label class="block text-lg !my-4" for="actors">Actors</label>
+        <MultiInputTranslated id="actors" v-model="actorsInterface" />
+      </div>
+
+      <div>
+        <label class="block text-lg !my-4" for="countries">Countries</label>
+        <OptionsMultiInput
+          id="countries"
+          v-model="form.countries"
+          :options="countries"
+          search-field="name"
+          label-field="name"
+          value-field="code"
+          required
+        />
+      </div>
+
+      <div>
+        <label class="block text-lg !my-4" for="directors">Directors</label>
+        <MultiInputTranslated id="directors" v-model="directorsInterface" />
+      </div>
+
+      <div>
+        <label class="block text-lg !my-4" for="rating">Rating</label>
+        <OptionsInput id="rating" v-model="form.rating" :options="ratings" />
       </div>
 
       <div class="!mt-4">

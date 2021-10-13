@@ -1,26 +1,19 @@
 <script lang="ts" setup>
-import { uniqBy } from 'lodash-es'
-import { translateSting } from '~/logic/translate'
-import { TranslatedString } from '~/types/Translated'
-
-const { locale } = useI18n()
-
-const val = ref('')
+import { uniq } from 'lodash-es'
 
 const props = withDefaults(
   defineProps<{
-    modelValue?: TranslatedString[]
+    modelValue?: string[]
     uniq?: boolean
-    uniqField?: 'ru' | 'en'
   }>(),
   {
     modelValue: () => [],
     uniq: true,
-    uniqField: 'en',
   },
 )
-const emit =
-  defineEmits<{ (e: 'update:modelValue', val: TranslatedString[]): void }>()
+const emit = defineEmits<{ (e: 'update:modelValue', val: string[]): void }>()
+
+const val = ref('')
 
 const items = ref(toRaw(props.modelValue))
 
@@ -39,27 +32,22 @@ watch(
   { deep: true },
 )
 
-const selectedGenre = ref<(TranslatedString & { idx: number }) | null>(null)
-
 function onInput(e: Event) {
   const { value } = e.target as HTMLInputElement
 
   val.value = value
 }
 
-function removeItem(item: TranslatedString) {
+function removeItem(item: string) {
   items.value.splice(items.value.indexOf(item), 1)
 }
 
 function addItem(item: string) {
-  const newstr = item.trim().toLowerCase()
+  const newstr = item.trim()
   if (!newstr) return
 
-  const newItem = { [locale.value]: newstr }
-
-  if (props.uniq)
-    items.value = uniqBy([...items.value, newItem], props.uniqField)
-  else items.value = [...items.value, newItem]
+  if (props.uniq) items.value = uniq([...items.value, newstr])
+  else items.value = [...items.value, newstr]
 
   val.value = ''
 }
@@ -68,13 +56,6 @@ function onDeletePress() {
   if (val.value.length || !items.value.length) return
 
   items.value.splice(items.value.length - 1, 1)
-}
-
-function updateTranslation() {
-  if (!selectedGenre.value) return
-  const { idx, ...translations } = selectedGenre.value
-  items.value[idx] = translations
-  selectedGenre.value = null
 }
 </script>
 
@@ -95,31 +76,10 @@ function updateTranslation() {
     "
     :class="{ 'ring-1': focus }"
   >
-    <ConfirmModal
-      v-if="selectedGenre"
-      :title="`translate '${items[selectedGenre.idx].en}'`"
-      @confirm="updateTranslation"
-    >
-      <template #default>
-        <form action="#" class="space-y-4" @submit.prevent="updateTranslation">
-          <div class="space-x-2">
-            <label for="genre-en">en</label>
-            <AppInput id="genre-en" v-model="selectedGenre.en" />
-          </div>
-          <div class="space-x-2">
-            <label for="genre-ru">ru</label>
-            <AppInput id="genre-ru" v-model="selectedGenre.ru" />
-          </div>
-
-          <input type="submit" class="hidden" />
-        </form>
-      </template>
-    </ConfirmModal>
-
     <span class="left-0 space-x-1 flex z-1">
       <span
-        v-for="(item, idx) in items"
-        :key="item.en"
+        v-for="item in items"
+        :key="item"
         class="
           flex
           items-center
@@ -131,11 +91,7 @@ function updateTranslation() {
           whitespace-nowrap
         "
       >
-        <span>{{ translateSting(item) }}</span>
-        <CarbonTranslate
-          class="cursor-pointer"
-          @click="selectedGenre = { ...item, idx }"
-        />
+        <span>{{ item }}</span>
         <CarbonClose class="cursor-pointer" @click="removeItem(item)" />
       </span>
     </span>

@@ -6,6 +6,7 @@
     "arrow-parens": "off",
     "operator-linebreak": "off",
     "brace-style": "off",
-    "quote-props": "off"
+    "quote-props": "off",
+    "quotes": "off"
   }
 }

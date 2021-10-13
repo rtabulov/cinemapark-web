@@ -494,6 +494,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@orchidjs/sifter@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@orchidjs/sifter/-/sifter-0.9.0.tgz#07eab78de2ac1799d2c169bf1f2e3e746d86c32c"
+  integrity sha512-NDYPhjdydJNbwDRvMFyUFFeImj1a+CJAwpjh/goKmvTHi726DPAJ1nW0X05p/GsorQgXHwhgDPyu6WaYqd4cRA==
+
 "@rollup/pluginutils@^4.1.0", "@rollup/pluginutils@^4.1.1":
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/@rollup/pluginutils/-/pluginutils-4.1.1.tgz#1d4da86dd4eded15656a57d933fda2b9a08d47ec"
@@ -3049,6 +3054,13 @@ to-regex-range@^5.0.1:
   dependencies:
     is-number "^7.0.0"
 
+tom-select@^2.0.0-rc.4:
+  version "2.0.0-rc.4"
+  resolved "https://registry.yarnpkg.com/tom-select/-/tom-select-2.0.0-rc.4.tgz#1a8809f3a6c7a162a3d40221845eccc346f51656"
+  integrity sha512-6kjF1mblEEEkbtUtEezlqIVcCkgj1WH0rFvemRUApHew88r+zxKcHiGwaABxikN1sD0cZO6ROJ1rWg8B+xe6fQ==
+  dependencies:
+    "@orchidjs/sifter" "^0.9.0"
+
 tsconfig-paths@^3.11.0:
   version "3.11.0"
   resolved "https://registry.yarnpkg.com/tsconfig-paths/-/tsconfig-paths-3.11.0.tgz#954c1fe973da6339c78e06b03ce2e48810b65f36"
@@ -3239,6 +3251,11 @@ vue-i18n@^9.2.0-beta.11:
     "@intlify/vue-devtools" "9.2.0-beta.11"
     "@vue/devtools-api" "^6.0.0-beta.13"
 
+vue-next-select@^2.10.1:
+  version "2.10.1"
+  resolved "https://registry.yarnpkg.com/vue-next-select/-/vue-next-select-2.10.1.tgz#5f1a7fad1b542c249bb33a14b9eec867e964c407"
+  integrity sha512-qyAij4Skz8eWzYiDScrIuz+xChnUsCNomxSdp3yogRB/IWS4uJ5z9SIvbn1uclVdYlQrFEf3f0vu/VYI1FRRIQ==
+
 vue-router@^4.0.11:
   version "4.0.11"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.11.tgz#cd649a0941c635281763a20965b599643ddc68ed"
@@ -3246,7 +3263,14 @@ vue-router@^4.0.11:
   dependencies:
     "@vue/devtools-api" "^6.0.0-beta.14"
 
-vue@^3.2.20:
+vue-select-next@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/vue-select-next/-/vue-select-next-0.1.6.tgz#bb93892013a86077c935cb52735e16073a0e0408"
+  integrity sha512-OqLfFdVlW7KoWN6KAssRA78q0rY2HPfQ/j9OwVSP8Y9Qu5cBVDXyYXRVH6E7p5WyYCdwoaakCF+ZQojslJTIww==
+  dependencies:
+    vue "3.2.x"
+
+vue@3.2.x, vue@^3.2.20:
   version "3.2.20"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.20.tgz#940f8aa8bf3e3be78243ca582bad41fcd45ae3e6"
   integrity sha512-81JjEP4OGk9oO8+CU0h2nFPGgJBm9mNa3kdCX2k6FuRdrWrC+CNe+tOnuIeTg8EWwQuI+wwdra5Q7vSzp7p4Iw==
