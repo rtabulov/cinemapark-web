@@ -13,6 +13,11 @@ const movieStore = useMovieStore()
 const { movies } = storeToRefs(movieStore)
 
 movieStore.fetchMovies()
+
+async function removeMovie(id: string) {
+  await movieStore.remove(id)
+  console.log('deleted', id)
+}
 </script>
 
 <template>
@@ -24,7 +29,12 @@ movieStore.fetchMovies()
 
       <div v-else-if="!movieStore.error" class="grid grid-cols-6 gap-4">
         <div v-for="movie in movies" :key="movie._id" class="col-span-1">
-          <MovieCard v-bind="movie" />
+          <MovieCard
+            class="h-full"
+            admin
+            v-bind="movie"
+            @remove="removeMovie"
+          />
         </div>
       </div>
 

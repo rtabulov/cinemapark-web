@@ -49,7 +49,7 @@ const movieStore = useMovieStore()
 const router = useRouter()
 
 async function onSubmit() {
-  await movieStore.createMovie(form)
+  await movieStore.create(form)
   router.push({ name: 'Movies' })
 }
 </script>

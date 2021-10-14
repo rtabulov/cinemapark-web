@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 useTitle('Cinemapark')
 const { locale } = useI18n()
+
+useDark().value = true
+
 watch(locale, () => {
   document.documentElement.setAttribute('lang', locale.value)
 })

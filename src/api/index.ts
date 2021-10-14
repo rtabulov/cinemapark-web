@@ -18,3 +18,8 @@ export async function createMovie(movie: CreateMovieDto) {
   )
   return res.data
 }
+
+export async function removeMovie(id: string) {
+  const res = await api.delete<Movie>(`/movies/${id}`)
+  return res.data
+}

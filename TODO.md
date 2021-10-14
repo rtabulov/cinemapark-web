@@ -1,0 +1,2 @@
+- implement auth system
+- show tips on deletion and creation

@@ -3,7 +3,7 @@ import { translateSting } from '~/logic/translate'
 import { NameTranslated, TranslatedString } from '~/types/Translated'
 import { Rating, ratings } from '~/utils/ratings'
 
-defineProps<{
+interface Props {
   name: TranslatedString
   actors: NameTranslated[]
   countries: string[]
@@ -17,7 +17,15 @@ defineProps<{
   slug: string
   trailer: string
   _id: string
-}>()
+
+  admin?: boolean
+}
+
+withDefaults(defineProps<Props>(), {
+  admin: false,
+})
+
+const emit = defineEmits<{ (e: 'remove', id: string): void }>()
 
 const ratingColors: Record<`${typeof ratings[number]}` | 'default', string> = {
   G: 'bg-green-400',
@@ -30,19 +38,52 @@ const ratingColors: Record<`${typeof ratings[number]}` | 'default', string> = {
 </script>
 
 <template>
-  <div>
+  <div
+    class="
+      group
+      bg-transparent
+      ring-transparent ring-offset-6 ring-offset-dark-800 ring-3
+      hover:ring-light-900
+      rounded-sm
+      transition
+    "
+  >
     <div style="padding-bottom: 125%" class="relative">
       <img
         :src="poster"
         :alt="name.en"
         class="absolute h-full w-full object-cover object-center"
       />
+      <div
+        class="
+          absolute
+          top-2
+          left-2
+          h-8
+          w-8
+          rounded-md
+          bg-dark-400
+          text-red-50
+          hover:text-red-400
+          flex
+          items-center
+          justify-center
+          text-base
+          transition-colors
+          hover:shadow-md
+          shadow-sm
+          cursor-pointer
+        "
+        @click="emit('remove', _id)"
+      >
+        <CarbonDelete />
+      </div>
     </div>
     <h2 class="font-semibold text-lg mt-4">
       {{ name.en }}
     </h2>
 
-    <div class="flex items-center justify-between mt-2">
+    <div class="flex items-center justify-between mt-2 pb-2">
       <div class="text-sm">
         {{ genres.map((g) => translateSting(g.name)).join(', ') }}
       </div>

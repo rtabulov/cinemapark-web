@@ -8,6 +8,7 @@ declare module 'vue' {
     AppModal: typeof import('./components/AppModal.vue')['default']
     CarbonCampsite: typeof import('~icons/carbon/campsite')['default']
     CarbonClose: typeof import('~icons/carbon/close')['default']
+    CarbonDelete: typeof import('~icons/carbon/delete')['default']
     CarbonEdit: typeof import('~icons/carbon/edit')['default']
     CarbonLogoGithub: typeof import('~icons/carbon/logo-github')['default']
     CarbonMoon: typeof import('~icons/carbon/moon')['default']

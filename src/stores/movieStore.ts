@@ -1,5 +1,5 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { createMovie, getMovies } from '~/api'
+import { createMovie, getMovies, removeMovie } from '~/api'
 import { CreateMovieDto, Movie } from '~/types/Movie'
 
 export const useMovieStore = defineStore('user', {
@@ -15,11 +15,20 @@ export const useMovieStore = defineStore('user', {
       })
     },
 
-    createMovie(movie: CreateMovieDto) {
+    create(movie: CreateMovieDto) {
       return this.useAsync(async () => {
         const createdMovie = await createMovie(movie)
         this.movies.push(createdMovie)
         return createdMovie
+      })
+    },
+
+    remove(id: string) {
+      return this.useAsync(async () => {
+        const deletedMovie = await removeMovie(id)
+        const idx = this.movies.findIndex((m) => m._id === id)
+        this.movies.splice(idx, 1)
+        return deletedMovie
       })
     },
   },
