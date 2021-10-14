@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { useMovieStore } from '~/stores/movies'
+import { useMovieStore } from '~/stores/movieStore'
 
 const movieStore = useMovieStore()
 
@@ -29,13 +29,20 @@ movieStore.fetchMovies()
       </div>
 
       <div v-else>
-        {{ movieStore.error.toJSON() }}
+        <h2 class="text-xl mb-4">Something went wrong</h2>
+        <h3 class="text-lg">
+          <code>
+            {{ movieStore.error.response?.status }}
+            {{ movieStore.error.response?.data }}
+            {{ movieStore.error.message }}
+          </code>
+        </h3>
       </div>
     </transition>
   </div>
 </template>
 
-<style>
+<style scoped>
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease;

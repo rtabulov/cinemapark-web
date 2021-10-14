@@ -1,5 +1,7 @@
 <script lang="ts" setup>
+import { translateSting } from '~/logic/translate'
 import { NameTranslated, TranslatedString } from '~/types/Translated'
+import { Rating, ratings } from '~/utils/ratings'
 
 defineProps<{
   name: TranslatedString
@@ -9,28 +11,46 @@ defineProps<{
   directors: NameTranslated[]
   genres: NameTranslated[]
   poster: string
-  rating: string
+  rating: Rating
   releaseDate: string
   runtime: number
   slug: string
   trailer: string
   _id: string
 }>()
+
+const ratingColors: Record<`${typeof ratings[number]}` | 'default', string> = {
+  G: 'bg-green-400',
+  'NC-17': 'bg-green-400',
+  PG: 'bg-green-400',
+  'PG-13': 'bg-yellow-400',
+  R: 'bg-orange-400',
+  default: 'bg-green-400',
+}
 </script>
 
 <template>
   <div>
-    <img :src="poster" :alt="name.en" class="w-full" />
+    <div style="padding-bottom: 125%" class="relative">
+      <img
+        :src="poster"
+        :alt="name.en"
+        class="absolute h-full w-full object-cover object-center"
+      />
+    </div>
     <h2 class="font-semibold text-lg mt-4">
       {{ name.en }}
     </h2>
 
-    <div class="flex items-center mt-2">
+    <div class="flex items-center justify-between mt-2">
       <div class="text-sm">
-        {{ genres.map(g => g.name.en).join(', ') }}
+        {{ genres.map((g) => translateSting(g.name)).join(', ') }}
       </div>
 
-      <div class="text-xxs flex-shrink-0 w-11 h-11 diamond transform relative">
+      <div
+        class="text-xxs flex-shrink-0 w-11 h-11 diamond transform relative"
+        :class="ratingColors[rating || 'default']"
+      >
         <span
           class="
             absolute
@@ -54,11 +74,7 @@ defineProps<{
 <style scoped lang="scss">
 $size: 1.3rem;
 
-.diamond:after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-color: rgb(221, 162, 0);
+.diamond {
   clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
 }
 </style>

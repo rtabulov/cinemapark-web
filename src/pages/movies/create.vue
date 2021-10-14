@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { createMovie } from '~/api'
 import { CreateMovieDto } from '~/types/Movie'
 import { prettyDate } from '~/utils'
 import { TranslatedString } from '~/types/Translated'
 import { countries } from '~/utils/countries'
 import { ratings } from '~/utils/ratings'
+import { useMovieStore } from '~/stores/movieStore'
 
 useTitle('Create a movie')
 
@@ -16,10 +16,10 @@ const form = reactive<CreateMovieDto>({
   runtime: 0,
   poster: '',
   trailer: '',
-  actors: [{ name: { en: 'Tom Hardy' } }],
-  countries: ['KZ', 'US'],
+  actors: [],
+  countries: ['US'],
   directors: [],
-  rating: null,
+  rating: 'PG',
 })
 
 const prettyReleaseDate = computed(() => prettyDate(form.releaseDate))
@@ -45,8 +45,12 @@ const directorsInterface = computed<TranslatedString[]>({
   },
 })
 
-function onSubmit() {
-  createMovie(form)
+const movieStore = useMovieStore()
+const router = useRouter()
+
+async function onSubmit() {
+  await movieStore.createMovie(form)
+  router.push({ name: 'Movies' })
 }
 </script>
 
@@ -112,7 +116,7 @@ function onSubmit() {
 
       <div>
         <label class="block text-lg !my-4" for="trailer"> Trailer URL </label>
-        <AppInput id="trailer" v-model.number="form.trailer" required />
+        <AppInput id="trailer" v-model.number="form.trailer" />
       </div>
 
       <div>
@@ -129,7 +133,6 @@ function onSubmit() {
           search-field="name"
           label-field="name"
           value-field="code"
-          required
         />
       </div>
 
@@ -140,7 +143,12 @@ function onSubmit() {
 
       <div>
         <label class="block text-lg !my-4" for="rating">Rating</label>
-        <OptionsInput id="rating" v-model="form.rating" :options="ratings" />
+        <OptionsInput
+          id="rating"
+          v-model="form.rating"
+          :options="ratings"
+          required
+        />
       </div>
 
       <div class="!mt-4">

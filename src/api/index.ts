@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import { CreateMovieDto, Movie } from '~/types/Movie'
 
 export const api = axios.create({
@@ -12,6 +12,9 @@ export async function getMovies() {
 }
 
 export async function createMovie(movie: CreateMovieDto) {
-  const res = await api.post('/movies', movie)
+  const res = await api.post<CreateMovieDto, AxiosResponse<Movie>>(
+    '/movies',
+    movie,
+  )
   return res.data
 }

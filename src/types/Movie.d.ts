@@ -10,7 +10,7 @@ export type Movie = {
   directors: NameTranslated[]
   genres: NameTranslated[]
   poster: string
-  rating: string
+  rating: Rating
   releaseDate: string
   runtime: number
   slug: string
