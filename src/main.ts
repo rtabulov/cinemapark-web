@@ -1,8 +1,8 @@
 // register vue composition api globally
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import { createPinia } from 'pinia'
 import routes from 'virtual:generated-pages'
+import pinia from './stores'
 import App from './App.vue'
 
 // windicss layers
@@ -18,7 +18,6 @@ const router = createRouter({
   routes,
 })
 
-const pinia = createPinia()
 app.use(pinia)
 app.use(i18n)
 app.use(router)
