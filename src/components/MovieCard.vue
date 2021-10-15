@@ -16,6 +16,7 @@ interface Props {
   runtime: number
   slug: string
   trailer: string
+  // eslint-disable-next-line vue/prop-name-casing
   _id: string
 
   admin?: boolean
