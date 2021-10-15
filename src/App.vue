@@ -7,6 +7,8 @@ useDark().value = true
 watch(locale, () => {
   document.documentElement.setAttribute('lang', locale.value)
 })
+
+useLocalStorage('locale', locale)
 </script>
 
 <template>

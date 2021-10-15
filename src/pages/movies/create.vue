@@ -152,7 +152,7 @@ async function onSubmit() {
       </div>
 
       <div class="!mt-4">
-        <button class="btn" type="submit">Create</button>
+        <button class="btn" type="submit">{{ $t('create') }}</button>
       </div>
     </form>
   </div>
