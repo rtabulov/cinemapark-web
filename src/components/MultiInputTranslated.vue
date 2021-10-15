@@ -84,6 +84,16 @@ function updateTranslation() {
 
   selectedGenre.value = null
 }
+
+const confirmModal = ref<InstanceType<typeof ConfirmModalVue> | null>(null)
+
+watchEffect(async () => {
+  if (selectedGenre.value) {
+    const ok = await confirmModal.value?.confirmation()
+
+    if (ok) updateTranslation()
+  }
+})
 </script>
 
 <template>
@@ -105,8 +115,8 @@ function updateTranslation() {
   >
     <ConfirmModal
       v-if="selectedGenre"
+      ref="confirmModal"
       :title="`translate '${modelValue[selectedGenre.idx].en}'`"
-      @confirm="updateTranslation"
     >
       <template #default>
         <form action="#" class="space-y-4" @submit.prevent="updateTranslation">

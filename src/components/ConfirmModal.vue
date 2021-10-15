@@ -5,35 +5,35 @@ withDefaults(defineProps<{ action?: string }>(), {
   action: 'confirm',
 })
 
-const emit = defineEmits<{
-  (e: 'confirmPromise', promise: Promise<unknown>): void
-  (e: 'confirm'): void
-  (e: 'fail'): void
-}>()
+// const emit = defineEmits<{
+//   (e: 'confirmPromise', promise: Promise<unknown>): void
+//   (e: 'confirm'): void
+//   (e: 'fail'): void
+// }>()
 
-let { promise, resolve } = newPromise<unknown>()
-promise.then(() => emit('confirm'))
-promise.catch((e) => {
-  emit('fail')
-  throw e
-})
+const { promise: p, resolve: r } = newPromise<boolean>()
 
-function bootstrap() {
-  const obj = newPromise<unknown>()
-  promise = obj.promise
-  promise.then(() => emit('confirm'))
-  promise.catch((e) => {
-    emit('fail')
-    throw e
-  })
-  resolve = obj.resolve
+const promise = ref(p)
+const resolve = ref(r)
 
-  emit('confirmPromise', promise)
+const open = ref(false)
+
+function confirmation() {
+  open.value = true
+
+  const obj = newPromise<boolean>()
+
+  promise.value = obj.promise
+  resolve.value = obj.resolve
+
+  return promise.value
 }
+
+defineExpose({ confirmation })
 </script>
 
 <template>
-  <AppModal @close="resolve(false)" @controls="bootstrap">
+  <AppModal :open="open" @close="resolve(false), (open = false)">
     <template #header>
       <slot name="header"></slot>
     </template>

@@ -5,8 +5,8 @@ export function prettyDate(date: Date) {
 }
 
 export function newPromise<T = unknown>() {
-  let res: (value: T) => void = () => {}
-  let rej: (value: T) => void = () => {}
+  let res: (value: T | PromiseLike<T>) => void = dummyFunction
+  let rej: (reason?: any) => void = dummyFunction
 
   const promise = new Promise<T>((resolve, reject) => {
     res = resolve
@@ -15,3 +15,5 @@ export function newPromise<T = unknown>() {
 
   return { promise, resolve: res, reject: rej }
 }
+
+export function dummyFunction() {}

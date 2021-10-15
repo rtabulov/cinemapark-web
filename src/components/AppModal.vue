@@ -8,18 +8,10 @@ const props = withDefaults(
   },
 )
 
-const modalOpen = ref(toRaw(props).open)
-
 type Controls = {
   close: () => void
   open: () => void
   toggle: () => void
-}
-
-const controls: Controls = {
-  close: () => (modalOpen.value = false),
-  open: () => (modalOpen.value = true),
-  toggle: () => (modalOpen.value = !modalOpen.value),
 }
 
 const emit = defineEmits<{
@@ -28,25 +20,31 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
+const controls: Controls = {
+  close: () => emit('close'),
+  open: () => emit('open'),
+  toggle: () => (props.open ? emit('close') : emit('open')),
+}
+
 emit('controls', controls)
 
-watch(modalOpen, (open) => {
+watch(toRef(props, 'open'), (open) => {
   if (open) {
-    emit('open')
     document.body.classList.add('overflow-hidden')
     return
   }
 
-  emit('close')
   document.body.classList.remove('overflow-hidden')
 })
+
+onBeforeUnmount(() => document.body.classList.remove('overflow-hidden'))
 </script>
 
 <template>
   <teleport to="#app">
     <!-- background -->
     <div
-      v-if="modalOpen"
+      v-if="open"
       class="
         inset-0
         fixed
@@ -56,7 +54,7 @@ watch(modalOpen, (open) => {
         justify-center
         z-100
       "
-      @click="modalOpen = false"
+      @click="emit('close')"
     >
       <!-- modal -->
       <div
